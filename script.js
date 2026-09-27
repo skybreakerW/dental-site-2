@@ -1,0 +1,14 @@
+const dialog=document.querySelector('#detail');
+const title=document.querySelector('#dialog-title');
+const copy=document.querySelector('#dialog-copy');
+const label=document.querySelector('#dialog-label');
+const preview=document.querySelector('#booking-preview');
+const services={general:['Everyday dental care','Make room for the essentials. A consultation is the place to discuss check-ups, cleaning, and a care routine that suits your smile.'],cosmetic:['Smile enhancements','Curious about a change? A personal consultation can help you explore cosmetic options and understand what may be suitable for your teeth.'],restorative:['Restorative care','Start with a conversation about comfort and function. Your dentist can assess your needs and explain suitable treatment options.']};
+document.querySelectorAll('[data-book]').forEach(button=>button.addEventListener('click',()=>{label.textContent='LET’S MEET YOUR SMILE';title.textContent='A brighter first hello.';copy.textContent='This is a preview of the clinic’s future appointment experience. In the finished website, patients will be able to request a visit here.';preview.hidden=false;dialog.showModal()}));
+document.querySelectorAll('[data-care]').forEach(button=>button.addEventListener('click',()=>{const content=services[button.dataset.care];label.textContent='CARE SHAPED AROUND YOU';title.textContent=content[0];copy.textContent=content[1];preview.hidden=true;dialog.showModal()}));
+document.querySelectorAll('.close,.dialog-done').forEach(button=>button.addEventListener('click',()=>dialog.close()));
+dialog.addEventListener('click',event=>{if(event.target===dialog){const box=dialog.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)dialog.close()}});
+document.querySelectorAll('.choice').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.choice').forEach(choice=>{choice.classList.remove('active');choice.setAttribute('aria-pressed','false')});button.classList.add('active');button.setAttribute('aria-pressed','true')}));
+const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('#nav');
+toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close navigation':'Open navigation');toggle.textContent=open?'×':'☰'});
+nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open navigation');toggle.textContent='☰'}));
